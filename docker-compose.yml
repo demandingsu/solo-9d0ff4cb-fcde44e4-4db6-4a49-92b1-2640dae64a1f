@@ -1,0 +1,24 @@
+services:
+  response-check:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: technical-response-check:local
+    ports:
+      - "8000:8000"
+    environment:
+      APP_SAMPLES_DIR: /app/samples
+      PYTHONPATH: /app/.pylib/lib/python3.11/site-packages
+    # The image contains the application, vendored Python packages and the
+    # local sample pages.  At runtime no external network access is required.
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - "CMD"
+        - "python"
+        - "-c"
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz', timeout=3)"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s

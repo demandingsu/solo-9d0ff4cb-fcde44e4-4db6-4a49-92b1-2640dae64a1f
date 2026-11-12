@@ -1,0 +1,7 @@
+# Reference list for development outside this offline bundle.
+# The Docker image uses the vendored copies in .pylib instead of pip install.
+fastapi==0.162.4
+uvicorn==0.54.0
+httpx==0.28.1
+beautifulsoup4==4.15.0
+pydantic==2.14.3
